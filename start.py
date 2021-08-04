@@ -29,6 +29,7 @@ TURKIZ = (0, 204, 204)
 GRAY = (160, 160, 160)
 BRIGHT_GRAY = (224, 224, 224)
 YELLOW = (255, 255, 0)
+RED_RED = (205,0,0)
 
 color_codes = {
     "0": GRAY,
@@ -105,7 +106,7 @@ def find_around(temp,bmap,grid,flag_map):
         return
 
 def reset():
-    global grid,lose,timer,flag_counter,bmap
+    global grid,lose,timer,flag_counter,bmap,bomb_places
     print('Reset')
     bmap, flag_map, bomb_places = main.setup()
     grid = [[0 for x in range(30)] for y in range(16)]
@@ -114,6 +115,7 @@ def reset():
     flag_counter = 0
     for i in bmap:
         print(i)
+    #return grid,lose,timer,flag_counter,bmap
 
 pygame.init()
 pygame.mixer.init()
@@ -215,7 +217,7 @@ while not done:
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
 
-    screen.fill(DARK_BLUE)
+    screen.fill(RED_RED)
     #reset button
     smiley_texture = pygame.image.load("splash/smiley.png").convert_alpha()
     sad_smiley_texture = pygame.image.load("splash/sadsmiley.png").convert_alpha()
