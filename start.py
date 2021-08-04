@@ -82,42 +82,10 @@ def find_around(temp,bmap,grid,flag_map):
                             temp.append(tuple([(pos_y + i), (pos_x + j)]))
                         elif int(bmap[pos_y + i][pos_x + j]) <= 8 and int(bmap[pos_y + i][pos_x + j]) >= 1 and flag_map[pos_y + i][pos_x + j] != 'f':
                             grid[pos_y + i][pos_x + j] = bmap[pos_y + i][pos_x + j]
-                            #print(grid[pos_y + i][pos_x + j])
                         else:
                             pass
                     except:
                         pass
-        """
-        try:
-            if bmap[pos_y + 1][pos_x] == ' ' and flag_map[pos_y + 1][pos_x] != 'f':
-                grid[pos_y + 1][pos_x] = '13'
-                bmap[pos_y][pos_x] = '13'
-                temp.append(tuple([(pos_y + 1), (pos_x)]))
-
-        except:
-            pass
-        try:
-            if bmap[pos_y -1][pos_x] == ' ' and (pos_y - 1) >= 0 and flag_map[pos_y -1][pos_x] != 'f':
-                grid[pos_y - 1][pos_x] = '13'
-                bmap[pos_y][pos_x] = '13'
-                temp.append(tuple([(pos_y - 1), (pos_x)]))
-        except:
-            pass
-        try:
-            if bmap[pos_y][pos_x + 1] == ' ' and flag_map[pos_y][pos_x + 1] != 'f':
-                grid[pos_y][pos_x+1] = '13'
-                bmap[pos_y][pos_x] = '13'
-                temp.append(tuple([(pos_y), (pos_x + 1)]))
-        except:
-            pass
-        try:
-            if bmap[pos_y][pos_x - 1] == ' ' and (pos_x -1 ) >= 0 and flag_map[pos_y][pos_x - 1] != 'f':
-                bmap[pos_y][pos_x] = '13'
-                grid[pos_y][pos_x - 1] = '13'
-                temp.append(tuple([(pos_y), (pos_x - 1)]))
-        except:
-            pass
-        """
         temp.pop(0)
         find_around(temp,bmap,grid,flag_map)
     else:
@@ -133,8 +101,8 @@ def reset():
     flag_counter = 0
     for i in bmap:
         print(i)
-    #return grid,lose,timer,flag_counter,bmap
 
+        
 pygame.init()
 pygame.mixer.init()
 
@@ -235,7 +203,7 @@ while not done:
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
 
-    screen.fill( )
+    screen.fill(RED_RED)
     #reset button
     smiley_texture = pygame.image.load("splash/smiley.png").convert_alpha()
     sad_smiley_texture = pygame.image.load("splash/sadsmiley.png").convert_alpha()
