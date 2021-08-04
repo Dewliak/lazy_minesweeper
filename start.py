@@ -1,5 +1,6 @@
 import pygame
 import main
+import os
 
 class texture:
     def __init__(self,posx,posy,splashcode):
@@ -115,7 +116,19 @@ def reset():
         print(i)
 
 pygame.init()
+pygame.mixer.init()
 
+#music
+background_music = 'audio/background_music.mp3'
+music = pygame.mixer.music.load(background_music)
+
+explosion_sound = 'audio/explosion.mp3'
+explosion = pygame.mixer.Sound(explosion_sound)
+pygame.mixer.Sound.set_volume(explosion, 0.1)
+click_sound = 'audio/click.wav'
+click = pygame.mixer.Sound(click_sound)
+
+pygame.mixer.music.play(-1)
 # Set the width and height of the screen [width, height]
 size = (850, 408) # def 765, 408 /// 755, 408 is good
 screen = pygame.display.set_mode(size)
@@ -149,8 +162,10 @@ while not done:
         if event.type == pygame.QUIT:  # If user clicked close
             done = True  # Flag that we are done so we exit this loop
         elif event.type == pygame.MOUSEBUTTONDOWN and 755 <= pos[0] <= 835 and 200 <= pos[1] <= 280:
+            pygame.mixer.Sound.play(click)
             reset()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and lose == False:
+            pygame.mixer.Sound.play(click)
             column = pos[0] // (width + margin)
             row = pos[1] // (height + margin)
             # Debug prints
@@ -164,12 +179,14 @@ while not done:
                         for i in bomb_places:
                             grid[i[0]][i[1]] = '9'
                             lose = True
+                            pygame.mixer.Sound.play(explosion)
                     else:
                         grid[row][column] = "13"
                         find_around([tuple([row,column])],bmap,grid,flag_map)
             except IndexError:
                 pass
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and lose == False:
+            pygame.mixer.click.play(1)
             column = pos[0] // (width + margin)
             row = pos[1] // (height + margin)
 
@@ -202,7 +219,7 @@ while not done:
     #reset button
     smiley_texture = pygame.image.load("splash/smiley.png").convert_alpha()
     sad_smiley_texture = pygame.image.load("splash/sadsmiley.png").convert_alpha()
-    if 755 <= pos[0] <= 835 and 200 <= pos[1] <= 280:
+    if 755 <= pos[0] <= 835 and 200 <= pos[1] <= 280 or lose == True:
         #pygame.draw.rect(screen, PINK , [755, 200 , 90, 40])
         sad_smiley_texture_rect = sad_smiley_texture.get_rect()
         sad_smiley_texture_rect.center = (795, 240)
