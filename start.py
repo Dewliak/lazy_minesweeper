@@ -178,7 +178,7 @@ while not done:
             column = pos[0] // (width + margin)
             row = pos[1] // (height + margin)
 
-            if flag_map[row][column] != 'f' and flag_counter < 99 and grid[row][column] != "13":
+            if flag_map[row][column] != 'f' and flag_counter < 99 and grid[row][column] != "13" and grid[row][column] == 0:
 
                 flag_map[row][column] = 'f'
                 grid[row][column] = '11'
