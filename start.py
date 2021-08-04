@@ -72,11 +72,28 @@ def find_around(temp,bmap,grid,flag_map):
         pos_x = temp[0][1]
         grid[pos_y][pos_x] = '13'
         bmap[pos_y][pos_x] = '13'
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if (((i + j) == 1) or ((i + j) == -1)) and (pos_y +i >=0) and (pos_x + j) >=0:
+                    try:
+                        if bmap[pos_y + i][pos_x + j] == ' ' and flag_map[pos_y + i][pos_x + j] != 'f':
+                            grid[pos_y + i][pos_x + j] = '13'
+                            bmap[pos_y][pos_x] = '13'
+                            temp.append(tuple([(pos_y + i), (pos_x + j)]))
+                        elif int(bmap[pos_y + i][pos_x + j]) <= 8 and int(bmap[pos_y + i][pos_x + j]) >= 1 and flag_map[pos_y + i][pos_x + j] != 'f':
+                            grid[pos_y + i][pos_x + j] = bmap[pos_y + i][pos_x + j]
+                            #print(grid[pos_y + i][pos_x + j])
+                        else:
+                            pass
+                    except:
+                        pass
+        """
         try:
             if bmap[pos_y + 1][pos_x] == ' ' and flag_map[pos_y + 1][pos_x] != 'f':
                 grid[pos_y + 1][pos_x] = '13'
                 bmap[pos_y][pos_x] = '13'
                 temp.append(tuple([(pos_y + 1), (pos_x)]))
+
         except:
             pass
         try:
@@ -100,6 +117,7 @@ def find_around(temp,bmap,grid,flag_map):
                 temp.append(tuple([(pos_y), (pos_x - 1)]))
         except:
             pass
+        """
         temp.pop(0)
         find_around(temp,bmap,grid,flag_map)
     else:
@@ -188,7 +206,7 @@ while not done:
             except IndexError:
                 pass
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3 and lose == False:
-            pygame.mixer.click.play(1)
+            pygame.mixer.Sound.play(click)
             column = pos[0] // (width + margin)
             row = pos[1] // (height + margin)
 
@@ -217,7 +235,7 @@ while not done:
     # First, clear the screen to white. Don't put other drawing commands
     # above this, or they will be erased with this command.
 
-    screen.fill(RED_RED)
+    screen.fill( )
     #reset button
     smiley_texture = pygame.image.load("splash/smiley.png").convert_alpha()
     sad_smiley_texture = pygame.image.load("splash/sadsmiley.png").convert_alpha()
